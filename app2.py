@@ -69,15 +69,18 @@ st.dataframe(df.head())
 st.subheader("📉 Income Trend")
 st.line_chart(df['Income'])
 # -------------------------
-# Default Trend by Age
 # -------------------------
-st.subheader("📊 Default vs Non-Default by Age")
-# Group data
+# Default Trend by Age (Percentage)
+# -------------------------
+st.subheader("📊 Default vs Non-Default by Age (%)")
+# Group counts
 age_default = df.groupby(['Age', 'Default']).size().unstack(fill_value=0)
-# Rename columns for clarity (optional)
-age_default.columns = ['Non-Default', 'Default'] if 0 in age_default.columns else age_default.columns
-# Line chart
-st.line_chart(age_default)
+# Convert to percentage
+age_percentage = age_default.div(age_default.sum(axis=1), axis=0) * 100
+# Rename columns for clarity
+age_percentage = age_percentage.rename(columns={0: "Non-Default (%)", 1: "Default (%)"})
+# Plot
+st.line_chart(age_percentage)
 
 # -------------------------
 # Default Distribution (Custom Colors)
