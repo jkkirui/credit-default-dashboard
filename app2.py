@@ -82,23 +82,9 @@ st.subheader("📊 Default Rate & Age Distribution")
 
 fig, ax1 = plt.subplots()
 
-# Histogram (Age distribution)
-ax1.hist(df['Age'], bins=15, alpha=0.6)
-ax1.set_xlabel("Age")
-ax1.set_ylabel("Number of People")
+st.subheader("📊 Customer Age Distribution")
+st.bar_chart(df['Age'].value_counts().sort_index())
 
-# Secondary axis for default rate
-ax2 = ax1.twinx()
-# Default rate by age
-age_default_rate = df.groupby('Age')['Default'].mean() * 100
-# Optional smoothing
-age_default_rate = age_default_rate.rolling(window=3, min_periods=1).mean()
-# Plot line (RED)
-ax2.plot(age_default_rate.index, age_default_rate.values, marker='o', color='red')
-ax2.set_ylabel("Default Rate (%)")
-# Title
-ax1.set_title("Default Risk vs Age Distribution")
-st.pyplot(fig)
 
 # -------------------------
 # Default Distribution (Custom Colors)
