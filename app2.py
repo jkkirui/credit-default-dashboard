@@ -69,13 +69,6 @@ st.dataframe(df.head())
 st.subheader("📉 Income Trend")
 st.line_chart(df['Income'])
 # -------------------------
-# Combined Chart: Default Rate + Age Distribution
-# -------------------------
-st.subheader("📊 Default Rate & Age Distribution")
-
-fig, ax1 = plt.subplots()
-
-
 st.subheader("📊 Customer Age Distribution")
 
 st.bar_chart(df['Age'].value_counts().sort_index())
