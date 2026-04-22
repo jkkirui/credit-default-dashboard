@@ -69,9 +69,11 @@ st.dataframe(df.head())
 st.subheader("📉 Income Trend")
 st.line_chart(df['Income'])
 # -------------------------
-st.subheader("📊 Customer Age Distribution")
+st.subheader("📈 Default Risk by Age")
 
-st.bar_chart(df['Age'].value_counts().sort_index())
+age_default_rate = df.groupby('Age')['Default'].mean() * 100
+
+st.line_chart(age_default_rate)
 
 
 # -------------------------
