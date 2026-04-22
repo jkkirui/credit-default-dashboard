@@ -63,15 +63,6 @@ if st.button("Predict"):
 # -------------------------
 st.subheader("📊 Dataset Overview")
 st.dataframe(df.head())
-
-# -------------------------
-# Correlation Heatmap
-# -------------------------
-st.subheader("📈 Correlation Heatmap")
-fig, ax = plt.subplots()
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm', ax=ax)
-st.pyplot(fig)
-
 # -------------------------
 # Income Trend
 # -------------------------
@@ -104,3 +95,9 @@ st.subheader("🔍 Feature Importance")
 
 importance = pd.Series(model.feature_importances_, index=X.columns)
 st.bar_chart(importance)
+# Correlation Heatmap
+# -------------------------
+st.subheader("📈 Correlation Heatmap")
+fig, ax = plt.subplots()
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', ax=ax)
+st.pyplot(fig)
