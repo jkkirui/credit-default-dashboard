@@ -70,11 +70,12 @@ st.subheader("📉 Income Trend")
 st.line_chart(df['Income'])
 # -------------------------
 st.subheader("📈 Default Risk by Age")
+df['AgeGroup'] = pd.cut(df['Age'], bins=[18,25,35,45,60,100],
+                        labels=["18-25","26-35","36-45","46-60","60+"])
 
-age_default_rate = df.groupby('Age')['Default'].mean() * 100
+age_default_rate = df.groupby('AgeGroup')['Default'].mean() * 100
 
 st.line_chart(age_default_rate)
-
 
 # -------------------------
 # Default Distribution (Custom Colors)
