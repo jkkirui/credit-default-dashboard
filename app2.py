@@ -69,17 +69,28 @@ st.dataframe(df.head())
 st.subheader("📉 Income Trend")
 st.line_chart(df['Income'])
 # -------------------------
+# Combined Chart: Default Rate + Age Distribution
 # -------------------------
-# -------------------------
-# Default Rate by Age (Trend)
-# -------------------------
-st.subheader("📈 Default Rate by Age")
-# Calculate default rate (mean of Default column)
-age_default_rate = df.groupby('Age')['Default'].mean()
-# Convert to percentage
-age_default_rate = age_default_rate * 100
-# Plot
-st.line_chart(age_default_rate)
+st.subheader("📊 Default Rate & Age Distribution")
+
+fig, ax1 = plt.subplots()
+
+# Histogram (Age distribution)
+ax1.hist(df['Age'], bins=15, alpha=0.6)
+ax1.set_xlabel("Age")
+ax1.set_ylabel("Number of People")
+# Secondary axis for default rate
+ax2 = ax1.twinx()
+# Default rate by age
+age_default_rate = df.groupby('Age')['Default'].mean() * 100
+# Optional smoothing
+age_default_rate = age_default_rate.rolling(window=3, min_periods=1).mean()
+# Plot line
+ax2.plot(age_default_rate.index, age_default_rate.values, marker='o')
+ax2.set_ylabel("Default Rate (%)")
+# Titles
+ax1.set_title("Default Risk vs Age Distribution")
+st.pyplot(fig)
 
 # -------------------------
 # Default Distribution (Custom Colors)
